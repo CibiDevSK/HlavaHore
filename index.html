@@ -1,108 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Hlava Hore</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>HLAVA HORE - ČeskoSlovensko</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Montserrat & Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        "cz-red": "#D71920",
-                        "cz-blue": "#11457E",
-                        "cz-white": "#FFFFFF",
-                    },
-                    fontFamily: {
-                        "sans": ["Montserrat", "sans-serif"]
-                    }
-                },
-            },
-        }
+        tailwind.config = { theme: { extend: { colors: { "cz-red": "#D71920", "cz-blue": "#11457E" }, fontFamily: { "sans": ["Montserrat", "sans-serif"] } } } }
     </script>
-
     <style type="text/tailwindcss">
-        :root {
-            --flag-opacity: 0.35;
-            --card-bg: rgba(255, 255, 255, 0.85)
-        }
-        body {
-            @apply bg-slate-950 text-white overflow-hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
+        body { @apply bg-slate-950 text-white overflow-hidden font-sans; }
         .screen { display: none; height: 100vh; width: 100vw; flex-direction: column; overflow: hidden; position: relative; }
         .screen.active { display: flex; }
-
-        /* HOME SCREEN S OBRÁZKOM */
-        #screen-menu {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), 
-                              url('https://i.postimg.cc/qqfwFQSQ/pozadie.jpg'); 
-            background-size: cover;
-            background-position: center;
-        }
-
-        .main-title {
-            font-size: 5rem;
-            font-weight: 900;
-            @apply uppercase leading-none;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 4px 4px 0px #1e3a8a, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
-        }
-
-        /* NOVÝ DIZAJN KATEGÓRIÍ (STITCH INTEGRÁCIA) */
-        .flag-bg-container {
-            position: absolute; inset: 0; z-index: -1; display: flex; overflow: hidden;
-        }
-        .czech-flag-side {
-            flex: 1; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA4W1D57mzra-V8ZoHEOlw9Bl60fOkoN6eiQBAjO6xA6WnbAoqOZ6pt_ideld3E337GyQgeSV8hN1SWIOt7QiKJONH2-Z49wVgm78gFuCOuQ4jADLbtnXLgXr6xY35indg4lf_ZjxT312_-LIb96OjZ_3xJW1werIYQ80prcz2N2VwAJqztY2yQnCjwZVapYo_ydPmDmJz9L0P3sj9DH3URIifme_ezpmFdiklMITQyIIrY_vIqr73y-ZmNjYUCDeNCq5aqHozYIN0);
-            background-size: cover; background-position: center; opacity: var(--flag-opacity);
-        }
-        .slovak-flag-side {
-            flex: 1; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAs1dZ1ca2-bSSo9nCG_KPksLV-MbN6KL-GfGaLZ7OfT4Mbtd1oYVBYryef208ajEVbW1Zhjc7sl-ZopC2dUp7eQl3008nuKM4bYIT6kifG85zU-Wo01fm9utzNM7lsmBUGmS_lL751gXZAuBiNlEZkZvaU-m7uFgKuoDuvZQ7l_X9zhPv51MMon6ITMXFSXwdjFhvv2zh5ir5XB_1mwIuxTUxPeL6EFHiM3HB4D_2sGeGHr7kY0lrHSJGBbGQl4yTJ_UXYf9zwRq0);
-            background-size: cover; background-position: center; opacity: var(--flag-opacity);
-        }
-        .category-card {
-            @apply flex flex-col items-center justify-center p-6 backdrop-blur-md transition-all duration-300 cursor-pointer text-center relative border-[8px];
-            background-color: var(--card-bg);
-            border-radius: 2.5rem;
-        }
-        .category-card:hover { @apply -translate-y-2; background-color: rgba(255, 255, 255, 0.95); }
-        
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
-            font-size: 4.5rem !important;
-        }
-
-        /* HERNÉ SLOVO - UPRAVENÉ ROZOSTUPY */
-        #game-word {
-            letter-spacing: 0.12em;
-            word-break: break-word;
-        }
-
+        #screen-menu { background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('https://i.postimg.cc/qqfwFQSQ/pozadie.jpg'); background-size: cover; background-position: center; }
+        .main-title { font-size: 5rem; font-weight: 900; @apply uppercase leading-none text-center; text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 4px 4px 0px #1e3a8a, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000; }
+        .flag-bg-container { position: absolute; inset: 0; z-index: -1; display: flex; overflow: hidden; }
+        .czech-flag-side { flex: 1; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA4W1D57mzra-V8ZoHEOlw9Bl60fOkoN6eiQBAjO6xA6WnbAoqOZ6pt_ideld3E337GyQgeSV8hN1SWIOt7QiKJONH2-Z49wVgm78gFuCOuQ4jADLbtnXLgXr6xY35indg4lf_ZjxT312_-LIb96OjZ_3xJW1werIYQ80prcz2N2VwAJqztY2yQnCjwZVapYo_ydPmDmJz9L0P3sj9DH3URIifme_ezpmFdiklMITQyIIrY_vIqr73y-ZmNjYUCDeNCq5aqHozYIN0); background-size: cover; background-position: center; opacity: 0.35; }
+        .slovak-flag-side { flex: 1; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAs1dZ1ca2-bSSo9nCG_KPksLV-MbN6KL-GfGaLZ7OfT4Mbtd1oYVBYryef208ajEVbW1Zhjc7sl-ZopC2dUp7eQl3008nuKM4bYIT6kifG85zU-Wo01fm9utzNM7lsmBUGmS_lL751gXZAuBiNlEZkZvaU-m7uFgKuoDuvZQ7l_X9zhPv51MMon6ITMXFSXwdjFhvv2zh5ir5XB_1mwIuxTUxPeL6EFHiM3HB4D_2sGeGHr7kY0lrHSJGBbGQl4yTJ_UXYf9zwRq0); background-size: cover; background-position: center; opacity: 0.35; }
+        .category-card { @apply flex flex-col items-center justify-center p-6 backdrop-blur-md transition-all duration-300 cursor-pointer text-center relative border-[8px]; background-color: rgba(255, 255, 255, 0.85); border-radius: 2.5rem; }
+        .material-symbols-outlined { font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48; font-size: 4.5rem !important; }
+        #game-word { letter-spacing: 0.12em; word-break: break-word; }
         .flash-correct { background-color: #10b981 !important; }
         .flash-skip { background-color: #ef4444 !important; }
-        
         .tap-zone { position: absolute; top: 0; height: 100%; width: 50%; z-index: 40; }
+        
+        /* CSS PRE ORIENTÁCIU */
+        #orientation-overlay { @apply fixed inset-0 z-[200] bg-slate-900 flex flex-col items-center justify-center p-10 text-center; display: none; }
+        @media (orientation: portrait) { #orientation-overlay { display: flex; } #app { display: none; } }
     </style>
 </head>
 <body>
-
+    <!-- OVERLAY PRVOK -->
+    <div id="orientation-overlay">
+        <span class="material-symbols-outlined text-8xl text-cz-blue animate-bounce">screen_rotation</span>
+        <h2 class="text-3xl font-black mt-6 uppercase italic leading-none text-white">Otočte mobil</h2>
+        <p class="text-slate-400 mt-2 font-bold uppercase tracking-widest text-sm">Pre hranie potrebujete režim na ležato (Landscape)</p>
+    </div>
+  
     <div id="app">
 
         <!-- 1. SCREEN: HOME -->
@@ -217,35 +153,34 @@
             <div id="action-label" class="absolute bottom-24 text-white font-black uppercase tracking-[0.5em] text-4xl opacity-0 transition-opacity duration-100 pointer-events-none z-20">---</div>
         </section>
 
-        <!-- 4. SCREEN: RESULTS -->
-        <section id="screen-results" class="screen bg-slate-950 flex flex-col h-screen overflow-hidden">
-    
-    <!-- FIXNÁ HORNÁ ČASŤ (Nescrolluje sa) -->
-    <div class="flex-none text-center pt-10 pb-4">
-        <h2 class="text-slate-500 uppercase font-black text-xl tracking-widest">Kolo skončilo</h2>
-        <div id="final-score" class="text-[8rem] md:text-[10rem] font-black leading-none my-2 italic text-white">0</div>
-        <p class="text-slate-400 uppercase font-bold text-sm tracking-tight">Uhádnuté slová:</p>
-    </div>
+        <!-- 4. SCREEN: RESULTS (OPRAVENÝ SCROLL) -->
+        <section id="screen-results" class="screen bg-slate-950 flex flex-col h-screen overflow-hidden text-white">
+            <!-- FIXNÁ HORNÁ ČASŤ -->
+            <div class="flex-none text-center pt-8 pb-2">
+                <h2 class="text-slate-500 uppercase font-black text-sm tracking-widest">Kolo skončilo</h2>
+                <div id="final-score" class="text-[7rem] md:text-[9rem] font-black leading-none my-1 italic text-white text-center w-full">0</div>
+                <p class="text-slate-400 uppercase font-bold text-[10px] tracking-widest border-b border-white/5 pb-2 mx-20">Vaše skóre</p>
+            </div>
 
-    <!-- SCROLLOVATEĽNÁ STREDNÁ ČASŤ (Tu sú výsledky) -->
-    <div class="flex-grow overflow-y-auto px-6 py-2">
-        <div id="results-list" class="w-full max-w-md mx-auto space-y-2 pb-6">
-            <!-- Tu JavaScript vygeneruje zoznam slov -->
-        </div>
-    </div>
+            <!-- SCROLLOVATEĽNÁ STREDNÁ ČASŤ -->
+            <div class="flex-grow overflow-y-auto px-6 scroll-smooth">
+                <div id="results-list" class="w-full max-w-md mx-auto space-y-2 py-4 text-white font-bold uppercase italic text-sm">
+                    <!-- Tu JavaScript vygeneruje zoznam slov -->
+                </div>
+            </div>
 
-    <!-- FIXNÁ SPODNÁ ČASŤ (Tlačidlá sú vždy vidieť) -->
-    <div class="flex-none p-6 bg-slate-950 border-t border-white/10 shadow-[0_-20px_30px_rgba(2,6,23,1)]">
-        <div class="w-full max-w-md mx-auto flex flex-col gap-3">
-            <button onclick="navigateTo('screen-categories')" class="bg-cz-blue w-full py-5 rounded-[2rem] font-black text-2xl uppercase italic shadow-xl active:scale-95 transition-transform text-white">
-                Hrať znova
-            </button>
-            <button onclick="navigateTo('screen-menu')" class="text-slate-500 font-bold uppercase text-sm tracking-widest py-2 text-center w-full">
-                Hlavné menu
-            </button>
-        </div>
-    </div>
-</section>
+            <!-- FIXNÁ SPODNÁ ČASŤ S TLAČIDLAMI -->
+            <div class="flex-none p-6 bg-slate-900 shadow-[0_-20px_30px_rgba(2,6,23,1)] border-t border-white/10">
+                <div class="w-full max-w-md mx-auto flex flex-col gap-3">
+                    <button onclick="navigateTo('screen-categories')" class="bg-cz-blue w-full py-5 rounded-[2rem] font-black text-2xl uppercase italic shadow-xl active:scale-95 transition-transform text-white">
+                        Hrať znova
+                    </button>
+                    <button onclick="navigateTo('screen-menu')" class="text-slate-500 font-bold uppercase text-xs tracking-widest py-2 text-center w-full">
+                        Hlavné menu
+                    </button>
+                </div>
+            </div>
+        </section>
 
     </div>
 
