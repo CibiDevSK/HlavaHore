@@ -2,192 +2,246 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <!-- Meta tag pre fixný zoom a využitie celého displeja -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HLAVA HORE - ČeskoSlovensko</title>
-    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet"/>
+    <!-- Google Fonts: Montserrat & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { "sans": ["Montserrat", "sans-serif"] },
-                    colors: { "cz-red": "#D71920", "cz-blue": "#11457E" }
+                    colors: {
+                        "cz-red": "#D71920",
+                        "cz-blue": "#11457E",
+                        "cz-white": "#FFFFFF",
+                    },
+                    fontFamily: {
+                        "sans": ["Montserrat", "sans-serif"]
+                    }
                 },
             },
         }
     </script>
 
     <style type="text/tailwindcss">
-        /* Základné nastavenie pre mobil - zákaz scrollovania celého tela */
-        html, body { 
-            height: 100%; width: 100%; margin: 0; padding: 0; 
-            @apply bg-slate-950 text-white overflow-hidden font-sans;
+        :root {
+            --flag-opacity: 0.35;
+            --card-bg: rgba(255, 255, 255, 0.85)
         }
-
-        .screen { 
-            display: none; height: 100vh; width: 100vw; 
-            flex-direction: column; overflow: hidden; position: relative; 
+        body {
+            @apply bg-slate-950 text-white overflow-hidden;
+            font-family: 'Montserrat', sans-serif;
         }
+        .screen { display: none; height: 100vh; width: 100vw; flex-direction: column; overflow: hidden; position: relative; }
         .screen.active { display: flex; }
 
-        /* OPRAVENÉ POZADIE (Width/Height 100% pre Landscape) */
-        #screen-menu { 
-            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), 
+        /* HOME SCREEN S OBRÁZKOM */
+        #screen-menu {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), 
                               url('https://i.postimg.cc/qqfwFQSQ/pozadie.jpg'); 
-            background-size: cover; 
+            background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            width: 100vw;
-            height: 100vh;
         }
 
-        /* ŠKÁLOVANIE TITULKY (Používame vh, aby sa nezrezala na nízkom displeji) */
-        .main-title { 
-            font-size: 14vh; 
-            font-weight: 900; 
-            @apply uppercase leading-none text-center; 
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 4px 4px 0px #1e3a8a, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000; 
+        .main-title {
+            font-size: 5rem;
+            font-weight: 900;
+            @apply uppercase leading-none;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 4px 4px 0px #1e3a8a, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
         }
 
-        /* GRID KATEGÓRIÍ - Kompaktnejší pre Landscape */
-        .category-card { 
-            @apply flex flex-col items-center justify-center p-2 backdrop-blur-md transition-all duration-300 cursor-pointer text-center relative border-[4px]; 
-            background-color: rgba(255, 255, 255, 0.85); 
-            border-radius: 1.5rem;
-            height: 28vh; /* Fixná výška, aby sa 2 rady zmestili do obrazovky */
+        /* NOVÝ DIZAJN KATEGÓRIÍ (STITCH INTEGRÁCIA) */
+        .flag-bg-container {
+            position: absolute; inset: 0; z-index: -1; display: flex; overflow: hidden;
         }
-        .material-symbols-outlined { 
-            font-variation-settings: "FILL" 1, "wght" 600; 
-            font-size: 8vh !important; /* Ikona reaguje na výšku displeja */
+        .czech-flag-side {
+            flex: 1; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA4W1D57mzra-V8ZoHEOlw9Bl60fOkoN6eiQBAjO6xA6WnbAoqOZ6pt_ideld3E337GyQgeSV8hN1SWIOt7QiKJONH2-Z49wVgm78gFuCOuQ4jADLbtnXLgXr6xY35indg4lf_ZjxT312_-LIb96OjZ_3xJW1werIYQ80prcz2N2VwAJqztY2yQnCjwZVapYo_ydPmDmJz9L0P3sj9DH3URIifme_ezpmFdiklMITQyIIrY_vIqr73y-ZmNjYUCDeNCq5aqHozYIN0);
+            background-size: cover; background-position: center; opacity: var(--flag-opacity);
+        }
+        .slovak-flag-side {
+            flex: 1; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAs1dZ1ca2-bSSo9nCG_KPksLV-MbN6KL-GfGaLZ7OfT4Mbtd1oYVBYryef208ajEVbW1Zhjc7sl-ZopC2dUp7eQl3008nuKM4bYIT6kifG85zU-Wo01fm9utzNM7lsmBUGmS_lL751gXZAuBiNlEZkZvaU-m7uFgKuoDuvZQ7l_X9zhPv51MMon6ITMXFSXwdjFhvv2zh5ir5XB_1mwIuxTUxPeL6EFHiM3HB4D_2sGeGHr7kY0lrHSJGBbGQl4yTJ_UXYf9zwRq0);
+            background-size: cover; background-position: center; opacity: var(--flag-opacity);
+        }
+        .category-card {
+            @apply flex flex-col items-center justify-center p-6 backdrop-blur-md transition-all duration-300 cursor-pointer text-center relative border-[8px];
+            background-color: var(--card-bg);
+            border-radius: 2.5rem;
+        }
+        .category-card:hover { @apply -translate-y-2; background-color: rgba(255, 255, 255, 0.95); }
+        
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
+            font-size: 4.5rem !important;
         }
 
-        /* OVERLAY PRE ORIENTÁCIU */
-        #orientation-overlay { 
-            @apply fixed inset-0 z-[200] bg-slate-900 flex flex-col items-center justify-center p-10 text-center; 
-            display: none; 
-        }
-        @media (orientation: portrait) { 
-            #orientation-overlay { display: flex; } 
-            #app { display: none; } 
+        /* HERNÉ SLOVO - UPRAVENÉ ROZOSTUPY */
+        #game-word {
+            letter-spacing: 0.12em;
+            word-break: break-word;
         }
 
         .flash-correct { background-color: #10b981 !important; }
         .flash-skip { background-color: #ef4444 !important; }
+        
         .tap-zone { position: absolute; top: 0; height: 100%; width: 50%; z-index: 40; }
     </style>
 </head>
 <body>
 
-    <!-- 0. OVERLAY: OTOČTE MOBIL -->
-    <div id="orientation-overlay">
-        <span class="material-symbols-outlined text-7xl text-cz-blue animate-bounce">screen_rotation</span>
-        <h2 class="text-3xl font-black mt-4 uppercase italic text-white">Otočte mobil</h2>
-        <p class="text-slate-400 mt-2 font-bold uppercase tracking-widest text-xs">Pre hranie potrebujete režim na šírku (Landscape)</p>
-    </div>
-
     <div id="app">
 
         <!-- 1. SCREEN: HOME -->
-        <section id="screen-menu" class="screen active items-center justify-center p-4">
-            <div class="mb-6">
-                <h1 class="main-title">HLAVA<br>HORE</h1>
-                <p class="text-blue-200 text-lg font-bold tracking-[0.4em] uppercase italic drop-shadow-2xl">SK / CZ Edícia</p>
+        <section id="screen-menu" class="screen active items-center justify-center p-6 text-center">
+            <div class="mb-12">
+                <h1 class="main-title mb-4">HLAVA<br>HORE</h1>
+                <p class="text-blue-200 text-xl font-bold tracking-[0.4em] uppercase italic drop-shadow-2xl">SK / CZ Edícia</p>
             </div>
-            <button onclick="navigateTo('screen-categories')" class="bg-cz-blue hover:bg-blue-500 text-white px-12 py-4 rounded-[2rem] text-3xl font-black shadow-2xl active:scale-90 transition-transform uppercase italic border-b-4 border-blue-900">
+            <button onclick="navigateTo('screen-categories')" class="bg-cz-blue hover:bg-blue-500 text-white px-20 py-8 rounded-[2.5rem] text-4xl font-black shadow-2xl active:scale-90 transition-transform uppercase italic tracking-tight border-b-8 border-blue-900">
                 HRAŤ
             </button>
         </section>
 
         <!-- 2. SCREEN: CATEGORIES -->
-        <section id="screen-categories" class="screen bg-slate-900">
-            <div class="flex-none flex items-center justify-between px-6 py-2 border-b border-white/10">
-                <h2 class="text-xl font-black uppercase italic tracking-tighter">Vyberte si kategóriu</h2>
-                <button onclick="navigateTo('screen-menu')" class="text-[10px] font-bold uppercase tracking-widest px-4 py-1 border border-white/20 rounded-full">Späť</button>
+        <section id="screen-categories" class="screen overflow-y-auto">
+            <div class="flag-bg-container">
+                <div class="czech-flag-side"></div>
+                <div class="slovak-flag-side"></div>
             </div>
 
-            <main class="flex-grow p-4 overflow-hidden">
-                <div class="grid grid-cols-3 gap-4 h-full">
+            <main class="flex-1 flex flex-col items-center py-12 px-8 z-10">
+                <header class="mb-12 text-center">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-cz-blue leading-tight drop-shadow-md">
+                        Vyberte si Kategóriu
+                    </h1>
+                    <div class="mt-4 flex justify-center items-center gap-4">
+                        <div class="h-2 w-16 bg-cz-blue rounded-full"></div>
+                        <span class="text-xl font-black text-cz-red uppercase italic">ČeskoSlovensko</span>
+                        <div class="h-2 w-16 bg-cz-red rounded-full"></div>
+                    </div>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl text-white">
                     <!-- Geografia -->
-                    <button onclick="selectCategory('geografia')" class="category-card border-cz-blue text-gray-900">
-                        <span class="material-symbols-outlined text-cz-blue">terrain</span>
-                        <span class="text-xs font-black uppercase tracking-tighter">Geografia</span>
+                    <button onclick="selectCategory('geografia')" class="category-card border-cz-blue group">
+                        <div class="text-cz-blue group-hover:scale-110 transition-transform duration-500 mb-4">
+                            <span class="material-symbols-outlined">terrain</span>
+                        </div>
+                        <span class="text-2xl font-black tracking-widest uppercase text-gray-900">Geografia</span>
                     </button>
                     <!-- Šport -->
-                    <button onclick="selectCategory('sportovci')" class="category-card border-cz-red text-gray-900">
-                        <span class="material-symbols-outlined text-cz-red">sports_hockey</span>
-                        <span class="text-xs font-black uppercase tracking-tighter">Šport</span>
+                    <button onclick="selectCategory('sportovci')" class="category-card border-cz-red group">
+                        <div class="text-cz-red group-hover:scale-110 transition-transform duration-500 mb-4">
+                            <span class="material-symbols-outlined">sports_hockey</span>
+                        </div>
+                        <span class="text-2xl font-black tracking-widest uppercase text-gray-900">Šport</span>
                     </button>
                     <!-- Gastro -->
-                    <button onclick="selectCategory('gastro')" class="category-card border-cz-blue text-gray-900">
-                        <span class="material-symbols-outlined text-cz-blue">sports_bar</span>
-                        <span class="text-xs font-black uppercase tracking-tighter">Gastro</span>
+                    <button onclick="selectCategory('gastro')" class="category-card border-cz-blue group">
+                        <div class="text-cz-blue group-hover:scale-110 transition-transform duration-500 mb-4">
+                            <span class="material-symbols-outlined">sports_bar</span>
+                        </div>
+                        <span class="text-2xl font-black tracking-widest uppercase text-gray-900">Gastro</span>
                     </button>
                     <!-- Filmy -->
-                    <button onclick="selectCategory('filmy')" class="category-card border-cz-red text-gray-900">
-                        <span class="material-symbols-outlined text-cz-red">castle</span>
-                        <span class="text-xs font-black uppercase tracking-tighter">Filmy</span>
+                    <button onclick="selectCategory('filmy')" class="category-card border-cz-red group">
+                        <div class="text-cz-red group-hover:scale-110 transition-transform duration-500 mb-4">
+                            <span class="material-symbols-outlined">castle</span>
+                        </div>
+                        <span class="text-2xl font-black tracking-widest uppercase text-gray-900">Filmy</span>
                     </button>
                     <!-- Showbiz -->
-                    <button onclick="selectCategory('showbiz')" class="category-card border-cz-blue text-gray-900">
-                        <span class="material-symbols-outlined text-cz-blue">star</span>
-                        <span class="text-xs font-black uppercase tracking-tighter">Celebrity</span>
+                    <button onclick="selectCategory('showbiz')" class="category-card border-cz-blue group">
+                        <div class="text-cz-blue group-hover:scale-110 transition-transform duration-500 mb-4">
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
+                        <span class="text-2xl font-black tracking-widest uppercase text-gray-900">Celebrity</span>
                     </button>
                     <!-- Pantomíma -->
-                    <button onclick="selectCategory('pantomima')" class="category-card border-cz-red text-gray-900">
-                        <span class="material-symbols-outlined text-cz-red">theater_comedy</span>
-                        <span class="text-xs font-black uppercase tracking-tighter">Pantomíma</span>
+                    <button onclick="selectCategory('pantomima')" class="category-card border-cz-red group">
+                        <div class="text-cz-red group-hover:scale-110 transition-transform duration-500 mb-4">
+                            <span class="material-symbols-outlined">theater_comedy</span>
+                        </div>
+                        <span class="text-2xl font-black tracking-widest uppercase text-gray-900">Pantomíma</span>
                     </button>
                 </div>
             </main>
+
+            <footer class="pb-12 text-center z-10">
+                <button onclick="navigateTo('screen-menu')" class="bg-cz-blue/80 hover:bg-cz-blue text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest transition-all">
+                    Späť na menu
+                </button>
+            </footer>
         </section>
 
         <!-- 3. SCREEN: GAME -->
-        <section id="screen-game" class="screen items-center justify-center bg-black">
-            <div class="absolute bottom-6 left-0 right-0 flex justify-between px-10 opacity-30 font-black uppercase text-[10px] pointer-events-none z-20">
-                <span>← SKIP (VĽAVO)</span>
-                <span>MÁM (VPRAVO) →</span>
+        <section id="screen-game" class="screen items-center justify-center p-6 text-center bg-black">
+            <!-- HUD Pomôcky -->
+            <div class="absolute bottom-10 left-0 right-0 flex justify-between px-10 opacity-20 font-black uppercase tracking-widest text-xs pointer-events-none z-20 text-white">
+                <span>← SKIP (vľavo)</span>
+                <span>MÁM (vpravo) →</span>
             </div>
-            <button onclick="quitGame()" class="absolute top-4 left-6 z-[110] bg-white/10 text-white px-4 py-1 rounded-full font-bold text-[10px] uppercase border border-white/20">✕ Koniec</button>
+
+            <button onclick="quitGame()" class="absolute top-8 left-8 z-[110] bg-white/10 text-white px-6 py-3 rounded-full font-black uppercase tracking-widest border border-white/20 active:bg-red-600 transition-all">
+                ✕ Ukončiť
+            </button>
+
             <div id="countdown-overlay" class="absolute inset-0 bg-slate-950 z-[100] flex items-center justify-center">
-                <div id="countdown-number" class="text-[40vh] font-black text-cz-blue italic leading-none">3</div>
+                <div id="countdown-number" class="text-[15rem] font-black text-cz-blue italic leading-none">3</div>
             </div>
-            <div class="tap-zone left-0" onclick="handleAction('skip')"></div>
+
+            <div class="tap-zone left-0" onclick="handleAction('skip')" style="left:0"></div>
             <div class="tap-zone right-0" onclick="handleAction('correct')" style="right:0"></div>
-            <div class="absolute top-4 right-10 flex flex-col items-end font-black z-20 pointer-events-none text-right">
-                <div id="game-timer" class="text-5xl font-mono text-slate-500 leading-none">60</div>
-                <div id="current-score" class="text-xl text-cz-blue italic uppercase">Body: 0</div>
+
+            <div class="absolute top-10 right-12 flex flex-col items-end font-black z-20 pointer-events-none">
+                <div id="game-timer" class="text-6xl font-mono text-slate-500">60</div>
+                <div id="current-score" class="text-2xl text-cz-blue italic uppercase tracking-tighter">Body: 0</div>
             </div>
-            <div id="game-word" class="font-black uppercase px-10 z-10 leading-tight text-center">---</div>
-            <div id="action-label" class="absolute bottom-16 text-white font-black uppercase tracking-[0.5em] text-3xl opacity-0 transition-opacity duration-100">---</div>
+            
+            <div id="game-word" class="font-black uppercase px-10 z-10 leading-[1.2] text-center w-full h-auto flex items-center justify-center overflow-hidden whitespace-nowrap">---</div>
+
+            <div id="action-label" class="absolute bottom-24 text-white font-black uppercase tracking-[0.5em] text-4xl opacity-0 transition-opacity duration-100 pointer-events-none z-20">---</div>
         </section>
 
         <!-- 4. SCREEN: RESULTS -->
-        <section id="screen-results" class="screen bg-slate-950 flex flex-col">
-            <div class="flex-none text-center pt-6 pb-2">
-                <h2 class="text-slate-500 uppercase font-black text-xs tracking-widest leading-none">Kolo skončilo</h2>
-                <div id="final-score" class="text-7xl font-black my-1 italic text-white leading-none">0</div>
-                <p class="text-slate-400 uppercase font-bold text-[10px] tracking-widest border-b border-white/5 pb-2 mx-20">Vaše skóre</p>
-            </div>
-            <div class="flex-grow overflow-y-auto px-6 py-2 scroll-smooth">
-                <div id="results-list" class="w-full max-w-sm mx-auto space-y-1 py-2 text-white font-bold uppercase italic text-[11px]"></div>
-            </div>
-            <div class="flex-none p-4 bg-slate-900 border-t border-white/10 shadow-[0_-20px_30px_rgba(2,6,23,1)]">
-                <div class="w-full max-w-xs mx-auto flex flex-col gap-2">
-                    <button onclick="navigateTo('screen-categories')" class="bg-cz-blue w-full py-4 rounded-[1.5rem] font-black text-lg uppercase italic shadow-xl text-white">Hrať znova</button>
-                    <button onclick="navigateTo('screen-menu')" class="text-slate-500 font-bold uppercase text-[10px] tracking-widest py-1 text-center w-full">Domov</button>
-                </div>
-            </div>
-        </section>
+        <section id="screen-results" class="screen bg-slate-950 flex flex-col h-screen overflow-hidden">
+    
+    <!-- FIXNÁ HORNÁ ČASŤ (Nescrolluje sa) -->
+    <div class="flex-none text-center pt-10 pb-4">
+        <h2 class="text-slate-500 uppercase font-black text-xl tracking-widest">Kolo skončilo</h2>
+        <div id="final-score" class="text-[8rem] md:text-[10rem] font-black leading-none my-2 italic text-white">0</div>
+        <p class="text-slate-400 uppercase font-bold text-sm tracking-tight">Uhádnuté slová:</p>
+    </div>
+
+    <!-- SCROLLOVATEĽNÁ STREDNÁ ČASŤ (Tu sú výsledky) -->
+    <div class="flex-grow overflow-y-auto px-6 py-2">
+        <div id="results-list" class="w-full max-w-md mx-auto space-y-2 pb-6">
+            <!-- Tu JavaScript vygeneruje zoznam slov -->
+        </div>
+    </div>
+
+    <!-- FIXNÁ SPODNÁ ČASŤ (Tlačidlá sú vždy vidieť) -->
+    <div class="flex-none p-6 bg-slate-950 border-t border-white/10 shadow-[0_-20px_30px_rgba(2,6,23,1)]">
+        <div class="w-full max-w-md mx-auto flex flex-col gap-3">
+            <button onclick="navigateTo('screen-categories')" class="bg-cz-blue w-full py-5 rounded-[2rem] font-black text-2xl uppercase italic shadow-xl active:scale-95 transition-transform text-white">
+                Hrať znova
+            </button>
+            <button onclick="navigateTo('screen-menu')" class="text-slate-500 font-bold uppercase text-sm tracking-widest py-2 text-center w-full">
+                Hlavné menu
+            </button>
+        </div>
+    </div>
+</section>
 
     </div>
 
     <script>
+        // --- DATA ---
         const DATA = [
-            { id: 'geografia', name: 'Geografia', words: [Vysoké Tatry', 'Nízke Tatry', 'Slovenský raj', 'Pieniny', 'Štrbské pleso', 'Poprad', 'Košice', 'Trenčín', 'Nitra', 'Žilina', 'Liptovská Mara', 'Dobšinská ľadová jaskyňa', 'Čičmany', 'Vlkolínec', 'Zemplínska šírava', 'Bardejov', 'Súľovské skaly', 'Poloniny', 'Strečno (hrad)', 'Demänovská jaskyňa slobody', 'Brno', 'Ostrava', 'Plzeň', 'Olomouc', 'Český Krumlov', 'Kutná Hora', 'Lednice', 'Praděd', 'Šumava', 'Krkonoše', 'Morava (řeka)', 'Lipno', 'Adršpašské skály', 'Karlův most', 'Ještěd', 'Pálava', 'Hluboká nad Vltavou', 'České Švýcarsko', 'Slezsko', 'Konopiště (zámek)', 'Mikulov', 'Beskydy', 'Ústí nad Labem'] },
+            { id: 'geografia', name: 'Geografia', words: ['Vysoké Tatry', 'Nízke Tatry', 'Slovenský raj', 'Pieniny', 'Štrbské pleso', 'Poprad', 'Košice', 'Trenčín', 'Nitra', 'Žilina', 'Liptovská Mara', 'Dobšinská ľadová jaskyňa', 'Čičmany', 'Vlkolínec', 'Zemplínska šírava', 'Bardejov', 'Súľovské skaly', 'Poloniny', 'Strečno (hrad)', 'Demänovská jaskyňa slobody', 'Brno', 'Ostrava', 'Plzeň', 'Olomouc', 'Český Krumlov', 'Kutná Hora', 'Lednice', 'Praděd', 'Šumava', 'Krkonoše', 'Morava (řeka)', 'Lipno', 'Adršpašské skály', 'Karlův most', 'Ještěd', 'Pálava', 'Hluboká nad Vltavou', 'České Švýcarsko', 'Slezsko', 'Konopiště (zámek)', 'Mikulov', 'Beskydy', 'Ústí nad Labem'] },
             { id: 'sportovci', name: 'Šport', words: ['Peter Sagan', 'Petra Vlhová', 'Zdeno Chára', 'Marek Hamšík', 'Marián Hossa', 'Pavol Demitra', 'Juraj Slafkovský', 'Martin Škrtel', 'Martina Moravcová', 'Dominika Cibulková', 'Matej Tóth', 'Ján Volko', 'Miroslav Šatan', 'Peter Bondra', 'Attila Végh', 'Stanislav Lobotka', 'Vladimír Weiss ml.', 'Róbert Vittek', 'Veronika Zuzulová', 'Richard Lintner', 'Ladislav Nagy', 'Žigmund Pálffy', 'Andrej Sekera', 'Ľubomír Višňovský', 'Michal Martikán', 'Elena Kaliská', 'Anastasia Kuzminová', 'Richard Varga', 'Filip Polášek', 'Štefan Svitko', 'Bratia Šťastní', 'Jozef Golonka', 'Vladimír Dzurilla', 'Ján Kozák st.', 'Jozef Pribilinec', 'Jaromír Jágr', 'Petr Čech', 'Pavel Nedvěd', 'Emil Zátopek', 'Dominik Hašek', 'Jan Železný', 'Roman Šebrle', 'Ester Ledecká', 'Petra Kvitová', 'Karolína Plíšková', 'Barbora Krejčíková', 'Tomáš Berdych', 'Tomáš Rosický', 'Patrik Schick', 'Gabriela Soukalová', 'Kateřina Neumannová', 'Lukáš Krpálek', 'Martina Sáblíková', 'Jiří Procházka', 'Karlos Vémola', 'Radek Štěpánek', 'Lucie Šafářová', 'Jaroslav Kulhavý', 'David Pastrňák', 'Patrik Eliáš', 'Tomáš Hertl', 'Barbora Špotáková', 'Zdeněk Štybar', 'Ondřej Moravec', 'Vladimír Růžička', 'Jan Koller', 'Milan Baroš', 'Ivan Lendl', 'Martina Navrátilová', 'Věra Čáslavská', 'Antonín Panenka', 'Václav Nedomanský', 'Jarmila Kratochvílová', 'Josef Masopust'] },
             { id: 'showbiz', name: 'Celebrity', words: ['Adela Banášová', 'Štefan Hríb', 'Sajfa', 'Juraj Kemka', 'Rytmus', 'Ego', 'Separ', 'Kali', 'Gogo', 'Majk Spirit', 'Elán', 'Peter Cmorik', 'Tina', 'Kristína', 'Richard Müller', 'No Name', 'IMT Smile', 'H16', 'Milan Lasica', 'Július Satinský', 'Marián Labuda', 'Karol Duchoň', 'INÉ KAFE', 'Zuzana Smatanová', 'Emma Drobná', 'Peter Lipa', 'Miro Žbirka', 'Peter Nagy', 'Gleb', 'Marika Gombitová', 'Jozef Kroner', 'Tatiana Pauhofová', 'Maroš Kramár', 'Lucie Bílá', 'Helena Vondráčková', 'Michal David', 'Ewa Farna', 'Petr Muk', 'Petr Kolář', 'Tomáš Klus', 'Xindl X', 'Michal Hrůza', 'Richard Krajčo', 'Michal Malátný', 'Jan Kraus', 'Leoš Mareš', 'Karel Šíp', 'Pavel Zuna', 'Tereza Pergnerová', 'Daniel Stach', 'Adéla Gondíková', 'Jakub Prachař', 'Jiřina Bohdalová', 'Oldřich Kaiser', 'Bolek Polívka', 'Ivan Trojan', 'Tatiana Vilhelmová', 'Jiří Bartoška', 'Pavel Liška', 'Iva Janžurová', 'Václav Postránecký', 'Jiří Langmajer'] },
             { id: 'gastro', name: 'Gastro', words: ['Bryndzové halušky', 'Kapustnica', 'Segedínsky guláš', 'Guláš', 'Sviečková na smotane', 'Vepřo-knedlo-zelo', 'Vyprážaný syr', 'Rezeň', 'Zemiakový šalát', 'Pirohy', 'Lokše', 'Strapačky', 'Parené buchty', 'Šúľance s makom', 'Palacinky', 'Langoš', 'Trdelník', 'Knedlíky', 'Bramboráky', 'Halušky s kapustou', 'Držková polievka', 'Cesnačka', 'Kulajda', 'Fazuľová polievka', 'Šošovicová polievka', 'Pečená kačica', 'Moravský vrabec', 'Medovníky', 'Bublanina', 'Bábovka', 'Vianočka', 'Makovník', 'Orechovník', 'Kremrole', 'Veterník', 'Špička', 'Punčový rez', 'Laskonka', 'Koláče', 'Žemľovka', 'Kofola', 'Vinea', 'Tatratea', 'Slivovica', 'Becherovka', 'Demänovka', 'Borovička', 'Plzeň', 'Fernet', 'Horalky', 'Kávenky', 'Mila', 'Margot', 'Lentilky', 'Kofila', 'Studentská pečeť', 'JoJo cukríky', 'Sójový suk', 'Deli tyčinka', 'Pikao'] },
@@ -196,6 +250,8 @@
         ];
 
         let state = { score: 0, timeLeft: 60, canAction: true, isGameRunning: false, gameLog: [], currentCategory: null, timer: null, countdownTimer: null, shuffledWords: [] };
+        
+        // Zvukový kontext
         const audio = new (window.AudioContext || window.webkitAudioContext)();
 
         function shuffleArray(array) {
@@ -210,7 +266,11 @@
         }
 
         function selectCategory(catId) {
-            if (audio.state === 'suspended') audio.resume();
+            // Aktivácia audia (povinné pre Chrome/Safari)
+            if (audio.state === 'suspended') {
+                audio.resume();
+            }
+            
             const cat = DATA.find(c => c.id === catId);
             state.currentCategory = cat;
             state.shuffledWords = shuffleArray([...cat.words]);
@@ -218,29 +278,53 @@
         }
 
         function beep(f, d = 0.2) {
-            try { const o = audio.createOscillator(), g = audio.createGain(); o.connect(g); g.connect(audio.destination); o.frequency.value = f; g.gain.setValueAtTime(0.1, audio.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + d); o.start(); o.stop(audio.currentTime + d); } catch(e) {}
+            try {
+                const o = audio.createOscillator();
+                const g = audio.createGain();
+                o.connect(g);
+                g.connect(audio.destination);
+                o.frequency.value = f;
+                g.gain.setValueAtTime(0.1, audio.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + d);
+                o.start();
+                o.stop(audio.currentTime + d);
+            } catch(e) { console.error("Audio error:", e); }
         }
 
         function startCountdown() {
             navigateTo('screen-game');
             let c = 3;
-            const el = document.getElementById('countdown-number'), overlay = document.getElementById('countdown-overlay');
-            overlay.style.display = 'flex'; el.innerText = c;
+            const el = document.getElementById('countdown-number');
+            const overlay = document.getElementById('countdown-overlay');
+            overlay.style.display = 'flex';
+            el.innerText = c;
+            
             state.countdownTimer = setInterval(() => {
-                c--; if (c > 0) { el.innerText = c; beep(440, 0.1); } 
-                else { clearInterval(state.countdownTimer); overlay.style.display = 'none'; initGame(); }
+                c--;
+                if (c > 0) { 
+                    el.innerText = c; 
+                    beep(440, 0.1); // Pípnutie pri odpočte
+                } 
+                else { 
+                    clearInterval(state.countdownTimer); 
+                    overlay.style.display = 'none'; 
+                    initGame(); 
+                }
             }, 1000);
         }
 
         function initGame() {
             state.score = 0; state.timeLeft = 60; state.gameLog = []; state.isGameRunning = true; state.canAction = true;
-            document.getElementById('current-score').innerText = `Body: 0`; document.getElementById('game-timer').innerText = `60`;
-            nextWord(); runTimer(); beep(880, 0.3);
+            document.getElementById('current-score').innerText = `Body: 0`;
+            document.getElementById('game-timer').innerText = `60`;
+            nextWord(); runTimer();
+            beep(880, 0.3); // Štartovací zvuk
         }
 
         function runTimer() {
             state.timer = setInterval(() => {
-                state.timeLeft--; document.getElementById('game-timer').innerText = state.timeLeft;
+                state.timeLeft--;
+                document.getElementById('game-timer').innerText = state.timeLeft;
                 if (state.timeLeft <= 0) endGame();
             }, 1000);
         }
@@ -249,36 +333,78 @@
             if (!state.isGameRunning || !state.canAction) return;
             state.canAction = false;
             const wordText = document.getElementById('game-word'), screen = document.getElementById('screen-game'), label = document.getElementById('action-label');
+            
             if (type === 'correct') {
-                state.score++; state.gameLog.push({ w: wordText.innerText, s: 'ok' });
-                screen.classList.add('flash-correct'); label.innerText = "MÁM!"; beep(1000, 0.2);
+                state.score++; 
+                state.gameLog.push({ w: wordText.innerText, s: 'ok' });
+                screen.classList.add('flash-correct'); 
+                label.innerText = "MÁM!";
+                beep(1000, 0.2); // Vysoký tón
             } else {
                 state.gameLog.push({ w: wordText.innerText, s: 'skip' });
-                screen.classList.add('flash-skip'); label.innerText = "SKIP"; beep(200, 0.3);
+                screen.classList.add('flash-skip'); 
+                label.innerText = "SKIP";
+                beep(200, 0.3); // Hlboký tón
             }
-            label.style.opacity = 1; document.getElementById('current-score').innerText = `Body: ${state.score}`;
-            setTimeout(() => { screen.classList.remove('flash-correct', 'flash-skip'); label.style.opacity = 0; nextWord(); state.canAction = true; }, 400);
+            
+            label.style.opacity = 1;
+            document.getElementById('current-score').innerText = `Body: ${state.score}`;
+            
+            setTimeout(() => {
+                screen.classList.remove('flash-correct', 'flash-skip');
+                label.style.opacity = 0; 
+                nextWord(); 
+                state.canAction = true;
+            }, 400);
         }
 
         function nextWord() {
-            if (state.shuffledWords.length === 0) state.shuffledWords = shuffleArray([...state.currentCategory.words]);
-            const currentWord = state.shuffledWords.pop() || "---";
-            const wordEl = document.getElementById('game-word');
-            let size = 90 / currentWord.length;
-            if (size > 14) size = 14; if (size < 5) size = 5;
-            wordEl.style.fontSize = size + "vw";
-            wordEl.innerText = currentWord;
+    if (state.shuffledWords.length === 0) {
+        state.shuffledWords = shuffleArray([...state.currentCategory.words]);
+    }
+    const currentWord = state.shuffledWords.pop() || "ŽIADNE DÁTA";
+    const wordEl = document.getElementById('game-word');
+
+    // NOVÝ VÝPOČET: Písmo určíme podľa dĺžky slova (čím dlhšie, tým menšie)
+    // 90 / dĺžka slova nám dáva dynamické 'vw' s bezpečnou rezervou
+    let length = currentWord.length;
+    let sizeValue = 90 / length; 
+
+    // Nastavíme limity (Strop a Podlaha)
+    if (sizeValue > 15) sizeValue = 15; // Maximálna veľkosť pre krátke slová (napr. VÁH)
+    if (sizeValue < 6) sizeValue = 6;    // Minimálna veľkosť pre dlhé vety
+
+    let fontSize = sizeValue + "vw";
+    let letterSpacing = "0.05em";
+
+    // Jemné doladenie pre veľmi dlhé slová
+    if (length > 12) {
+        letterSpacing = "0em"; // Zrušíme medzery medzi písmenami pri dlhých slovách
+    }
+
+    // Aplikujeme štýly
+    wordEl.style.fontSize = fontSize;
+    wordEl.style.letterSpacing = letterSpacing;
+    wordEl.innerText = currentWord;
+}
+
+        function quitGame() {
+            clearInterval(state.timer); 
+            clearInterval(state.countdownTimer);
+            state.isGameRunning = false;
+            document.getElementById('countdown-overlay').style.display = 'none';
+            navigateTo('screen-categories');
         }
 
-        function quitGame() { clearInterval(state.timer); clearInterval(state.countdownTimer); state.isGameRunning = false; document.getElementById('countdown-overlay').style.display = 'none'; navigateTo('screen-categories'); }
-
         function endGame() {
-            state.isGameRunning = false; clearInterval(state.timer); navigateTo('screen-results');
+            state.isGameRunning = false; 
+            clearInterval(state.timer); 
+            navigateTo('screen-results');
             document.getElementById('final-score').innerText = state.score;
             const res = document.getElementById('results-list'); res.innerHTML = '';
             state.gameLog.forEach(i => {
                 const d = document.createElement('div');
-                d.className = `flex justify-between p-2 rounded-xl border border-white/5 ${i.s === 'ok' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`;
+                d.className = `flex justify-between p-4 rounded-2xl font-bold uppercase italic ${i.s === 'ok' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`;
                 d.innerHTML = `<span>${i.w}</span><span>${i.s === 'ok' ? '✓' : '✕'}</span>`;
                 res.appendChild(d);
             });
